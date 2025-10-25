@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematic Hacker Code Typing - MD Nahid Islam</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at center, #001010 0%, #000000 90%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Share Tech Mono', monospace;
+  overflow: hidden;
+}
+
+/* Terminal Box */
+.terminal {
+  width: min(90vw, 850px);
+  height: 80vh;
+  padding: 25px;
+  background: rgba(0,10,15,0.85);
+  border-radius: 12px;
+  border: 1px solid rgba(0,255,200,0.15);
+  box-shadow: 0 0 40px rgba(0,255,200,0.25), inset 0 0 40px rgba(0,255,200,0.15);
+  color: #00ffc8;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-y: auto;
+  position: relative;
+  animation: glowPulse 3s infinite;
+  scroll-behavior: smooth;
+}
+.terminal::-webkit-scrollbar { display: none; }
+
+/* Neon scanline */
+.terminal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,255,150,0.05) 50%, transparent 100%);
+  animation: scanMove 3s linear infinite;
+  pointer-events: none;
+}
+@keyframes scanMove {
+  0% { transform: translateY(-100%); opacity: 0.2; }
+  50% { opacity: 0.4; }
+  100% { transform: translateY(100%); opacity: 0.2; }
+}
+
+/* Glow effect */
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 40px rgba(0,255,200,0.3); }
+  50% { box-shadow: 0 0 60px rgba(0,255,200,0.5); }
+}
+
+/* Flicker effect */
+@keyframes flicker {
+  0%,19%,21%,23%,25%,54%,56%,100% { opacity: 1; }
+  20%,24%,55% { opacity: 0.3; }
+}
+
+/* Blinking cursor */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  background: #00ffc8;
+  margin-left: 3px;
+  animation: blink 0.6s steps(1) infinite;
+}
+@keyframes blink { 50% { background: transparent; } }
+
+pre {
+  white-space: pre-wrap;
+  color: #00ffc8;
+  text-shadow: 0 0 8px #00ffc8;
+  animation: flicker 4s infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="terminal" id="terminal">
+  <pre id="code-display"></pre>
+  <span class="cursor" id="cursor"></span>
+</div>
+
+<script>
+const userCode = `Welcome to MD Nahid Islam's Hacker Screen ⚡
+Type effect running... 
+--------------------------------
+এখানে তুমি নিজের লেখা, কবিতা, বা কোড দিতে পারো।
+--------------------------------
+Enjoy!`;
+
+const display = document.getElementById("code-display");
+const terminal = document.getElementById("terminal");
+const cursor = document.getElementById("cursor");
+
+let i = 0;
+const typingSpeed = 60;
+function typeCode() {
+  if (i < userCode.length) {
+    display.textContent += userCode[i];
+    i++;
+    terminal.scrollTop = terminal.scrollHeight;
+    setTimeout(typeCode, typingSpeed);
+  } else {
+    cursor.style.display = "none";
+  }
+}
+setTimeout(typeCode, 800);
+</script>
+
+</body>
+</html>
